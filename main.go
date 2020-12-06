@@ -43,7 +43,7 @@ func member_details(msg *tbot.Message) string {
 
 func help(ID int64) {
 	msg := ` Use one of the following commands to :
-/github - Get a link to KPH's Github page.
+	/github - Get a link to KPH's Github page.
 	/telegram - Get an invite link for KPH's Telegram Group.
 	/facebook - Get the link of KPH's facebook page.
 	/resources - A curated list of Competitive Programming resources.
@@ -54,6 +54,8 @@ func help(ID int64) {
 	
 	* Admin only commands: 
 	/offtopic - Mark a text as offtopic.
+	/spam - Mark a text as spam
+	/let_me_Google_that - Let me google that for you. --TODO
 	To contribute to this bot : https://github.com/Knuth-Programming-Hub/
 	`
 	bot.Send(tbot.NewMessage(ID, msg))
@@ -125,6 +127,15 @@ func main() {
 				} else {
 					bot.Send(tbot.NewMessage(ID, "Sorry, this looks like an admin only command."))
 				}
+			case "addevent":
+				check := check_for_mod(ID, update.Message.From.ID)
+				if check == true {
+					addevent(ID, update.Message.Text)
+				} else {
+					bot.Send(tbot.NewMessage(ID, "Sorry, this looks like an admin only command."))
+				}
+			case "listevents":
+				listevents(ID)
 			case "spam":
 				check := check_for_mod(ID, update.Message.From.ID)
 				if check == true {
