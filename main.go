@@ -71,11 +71,11 @@ func help(ID int64) {
 	/contests - Details of previous contests organised by the Hub.
 	/paste - Create a pastebin for contents of a text
 	/discord - Get a link to KPH's Discord server and come hang out!
+	/let_me_google_that - Let me google that for you. --TODO
 
 	* Admin only commands: 
 	/offtopic - Mark a text as offtopic.
 	/spam - Mark a text as spam
-	/let_me_google_that - Let me google that for you. --TODO
 	
 	To contribute to this bot : https://github.com/Knuth-Programming-Hub/
 	`
