@@ -70,7 +70,6 @@ func help(ID int64) {
 	/workshops - Details of meetups organised by the Hub and related resources.
 	/contests - Details of previous contests organised by the Hub.
 	/paste - Create a pastebin for contents of a text
-	/discord - Get a link to KPH's Discord server and come hang out!
 	/let_me_google_that - Let me google that for you. --TODO
 
 	* Admin only commands: 
