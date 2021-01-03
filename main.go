@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	tbot "github.com/go-telegram-bot-api/telegram-bot-api"
@@ -35,6 +36,24 @@ func check_for_mod(ID int64, userid int) bool {
 	return false
 }
 
+func google(ID int64, message *tbot.Message) {
+	base := "http://letmegooglethat.com/?q="
+	if message.ReplyToMessage != nil {
+		if message.ReplyToMessage.Text != "" {
+			query := message.ReplyToMessage.Text
+			query = strings.Replace(query, " ", "+", -1)
+			log.Printf("Query: " + query)
+			url := base + query
+			log.Printf(url)
+			ButtonLinks(ID, "Click Here", string(url), "Find your answer below ;)")
+		} else {
+			bot.Send(tbot.NewMessage(ID, "I don't know what to Google. Reply to a text message/document so that I can Google it."))
+		}
+	} else {
+		bot.Send(tbot.NewMessage(ID, "I don't know what to Google. Reply to a text message/document so that I can Google it."))
+	}
+}
+
 // extract member details
 func member_details(msg *tbot.Message) string {
 	log.Printf("[%s]", msg.From.UserName)
@@ -51,11 +70,13 @@ func help(ID int64) {
 	/workshops - Details of meetups organised by the Hub and related resources.
 	/contests - Details of previous contests organised by the Hub.
 	/paste - Create a pastebin for contents of a text
-	
+	/discord - Get a link to KPH's Discord server and come hang out!
+
 	* Admin only commands: 
 	/offtopic - Mark a text as offtopic.
 	/spam - Mark a text as spam
-	/let_me_Google_that - Let me google that for you. --TODO
+	/let_me_google_that - Let me google that for you. --TODO
+	
 	To contribute to this bot : https://github.com/Knuth-Programming-Hub/
 	`
 	bot.Send(tbot.NewMessage(ID, msg))
@@ -113,6 +134,8 @@ func main() {
 				ButtonLinks(ID, "Knuth Contests", "https://github.com/Knuth-Programming-Hub/Knuth-Contests", "Contests orgaranised by Knuth Programming Hub.")
 			case "github":
 				ButtonLinks(ID, "Github", "http://github.com/Knuth-Programming-Hub/", "Checkout our Github.")
+			case "discord":
+				ButtonLinks(ID, "Discord", "https://discord.gg/wKJv4DuT/", "Come hang out on discord!")
 			case "facebook":
 				ButtonLinks(ID, "Click here", "https://www.facebook.com/groups/jiit.knuth/", "KPH's Facebook Page.")
 			case "telegram":
@@ -130,11 +153,13 @@ func main() {
 			case "addevent":
 				check := check_for_mod(ID, update.Message.From.ID)
 				if check == true {
+					bot.Send(tbot.NewMessage(ID, "This is still a beta feature."))
 					addevent(ID, update.Message.Text)
 				} else {
 					bot.Send(tbot.NewMessage(ID, "Sorry, this looks like an admin only command."))
 				}
 			case "listevents":
+				bot.Send(tbot.NewMessage(ID, "This is still a beta feature."))
 				listevents(ID)
 			case "spam":
 				check := check_for_mod(ID, update.Message.From.ID)
@@ -146,6 +171,8 @@ func main() {
 				} else {
 					bot.Send(tbot.NewMessage(ID, "Sorry, this looks like an admin only command."))
 				}
+			case "let_me_google_that":
+				google(ID, update.Message)
 			default:
 				{
 					msg, err := bot.Send(tbot.NewMessage(ID, "I don't know this command"))
