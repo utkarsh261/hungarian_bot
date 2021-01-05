@@ -47,10 +47,10 @@ func google(ID int64, message *tbot.Message) {
 			log.Printf(url)
 			ButtonLinks(ID, "Click Here", string(url), "Find your answer below ;)")
 		} else {
-			bot.Send(tbot.NewMessage(ID, "I don't know what to Google. Reply to a text message/document so that I can Google it."))
+			bot.Send(tbot.NewMessage(ID, "I don't know what to Google🙁. Reply to a text message so that I can Google it."))
 		}
 	} else {
-		bot.Send(tbot.NewMessage(ID, "I don't know what to Google. Reply to a text message/document so that I can Google it."))
+		bot.Send(tbot.NewMessage(ID, "I don't know what to Google🙁. Reply to a text message so that I can Google it."))
 	}
 }
 
@@ -70,7 +70,7 @@ func help(ID int64) {
 	/workshops - Details of meetups organised by the Hub and related resources.
 	/contests - Details of previous contests organised by the Hub.
 	/paste - Create a pastebin for contents of a text
-	/let_me_google_that - Let me google that for you. --TODO
+	/let_me_google_that - Let me google that for you.
 
 	* Admin only commands: 
 	/offtopic - Mark a text as offtopic.
@@ -109,7 +109,7 @@ func main() {
 
 		log.Print(update.Message.Photo)
 		if update.Message.Photo != nil {
-			response := "Hi @" + member_details(update.Message) + ", if the picture(s) you just sent is of code, please use https://ideone.com/ or https://pastebin.com/ and send the link here."
+			response := "Hi @" + member_details(update.Message) + ", if the picture(s) you just sent is of code, please use https://ideone.com/ or https://pastebin.com/ and send the link here. Else please ignore, sorry hehe😅"
 
 			ButtonLinks(ID, "Ideone.com", "https://ideone.com/", response)
 			continue
@@ -147,7 +147,7 @@ func main() {
 				if check == true {
 					offtopic(ID)
 				} else {
-					bot.Send(tbot.NewMessage(ID, "Sorry, this looks like an admin only command."))
+					bot.Send(tbot.NewMessage(ID, "Sorry, this looks like an admin only command💢."))
 				}
 			case "addevent":
 				check := check_for_mod(ID, update.Message.From.ID)
@@ -163,18 +163,18 @@ func main() {
 			case "spam":
 				check := check_for_mod(ID, update.Message.From.ID)
 				if check == true {
-					res := "Hi @" + member_details(update.Message) + ", there are a lot of people in this group and it can get pretty annoying for them with these kind of messages, please don't spam again. Thanks."
+					res := "Hi @" + member_details(update.Message.ReplyToMessage) + ", there are a lot of people in this group and it can get pretty annoying for them with these kind of messages, please don't spam again. Thanks🙂."
 					msg := tbot.NewMessage(ID, res)
 
 					bot.Send(msg)
 				} else {
-					bot.Send(tbot.NewMessage(ID, "Sorry, this looks like an admin only command."))
+					bot.Send(tbot.NewMessage(ID, "Sorry, this looks like an admin only command💢."))
 				}
 			case "let_me_google_that":
 				google(ID, update.Message)
 			default:
 				{
-					msg, err := bot.Send(tbot.NewMessage(ID, "I don't know this command"))
+					msg, err := bot.Send(tbot.NewMessage(ID, "I don't know this command🙁"))
 
 					log.Print(err)
 					timer1 := time.NewTimer(5 * time.Second)
