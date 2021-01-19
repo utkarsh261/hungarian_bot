@@ -65,6 +65,7 @@ func help(ID int64) {
 	/github - Get a link to KPH's Github page.
 	/telegram - Get an invite link for KPH's Telegram Group.
 	/facebook - Get the link of KPH's facebook page.
+	/discord - Get a link to KPH's Discord server and come hang out!
 	/resources - A curated list of Competitive Programming resources.
 	/meetups - Details of meetups organised by the Hub and related resources.
 	/workshops - Details of meetups organised by the Hub and related resources.
@@ -134,7 +135,7 @@ func main() {
 			case "github":
 				ButtonLinks(ID, "Github", "http://github.com/Knuth-Programming-Hub/", "Checkout our Github.")
 			case "discord":
-				ButtonLinks(ID, "Discord", "https://discord.gg/", "Come hang out on discord!")
+				ButtonLinks(ID, "Discord", "https://discord.gg/j5WdgpbzWP", "Come hang out on discord!")
 			case "facebook":
 				ButtonLinks(ID, "Click here", "https://www.facebook.com/groups/jiit.knuth/", "KPH's Facebook Page.")
 			case "telegram":
