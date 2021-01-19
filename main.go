@@ -163,10 +163,14 @@ func main() {
 			case "spam":
 				check := check_for_mod(ID, update.Message.From.ID)
 				if check == true {
-					res := "Hi @" + member_details(update.Message.ReplyToMessage) + ", there are a lot of people in this group and it can get pretty annoying for them with these kind of messages, please don't spam again. Thanks🙂."
-					msg := tbot.NewMessage(ID, res)
+					if update.Message.ReplyToMessage != nil {
+						res := "Hi @" + member_details(update.Message.ReplyToMessage) + ", there are a lot of people in this group and it can get pretty annoying for them with these kind of messages, please don't spam again. Thanks🙂."
+						msg := tbot.NewMessage(ID, res)
 
-					bot.Send(msg)
+						bot.Send(msg)
+					} else {
+						bot.Send(tbot.NewMessage(ID, "Reply to a text to mark it as spam! 💢."))
+					}
 				} else {
 					bot.Send(tbot.NewMessage(ID, "Sorry, this looks like an admin only command💢."))
 				}
