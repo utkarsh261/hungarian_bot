@@ -135,7 +135,7 @@ func main() {
 			case "github":
 				ButtonLinks(ID, "Github", "http://github.com/Knuth-Programming-Hub/", "Checkout our Github.")
 			case "discord":
-				ButtonLinks(ID, "Discord", "https://discord.gg/j5WdgpbzWP", "Come hang out on discord!")
+				ButtonLinks(ID, "Discord", "https://discord.gg/jatPMerTED", "Come hang out on discord!")
 			case "facebook":
 				ButtonLinks(ID, "Click here", "https://www.facebook.com/groups/jiit.knuth/", "KPH's Facebook Page.")
 			case "telegram":
