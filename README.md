@@ -4,3 +4,5 @@ An [OSDC Bot](https://github.com/osdc/bots) clone modified for the needs of Knut
 
 To contribute, See contributing.md.
 
+Also provides API to support bridging with other apps.
+
