@@ -3,9 +3,12 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/gorilla/mux"
 
 	tbot "github.com/go-telegram-bot-api/telegram-bot-api"
 )
@@ -95,6 +98,17 @@ func main() {
 		log.Panic(err)
 	}
 	bot.Debug = true
+
+	//  Create a new goroutine for API
+	go func() {
+		r := mux.NewRouter()
+		api := r.PathPrefix("/api/v1").Subrouter()
+		api.HandleFunc("/message/create", func(w http.ResponseWriter, r *http.Request) {
+			createMessage(w, r)
+		})
+		log.Fatal(http.ListenAndServe(":8080", r))
+	}()
+
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 	u := tbot.NewUpdate(0)
 	u.Timeout = 60
